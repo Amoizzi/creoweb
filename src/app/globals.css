@@ -101,3 +101,65 @@ body {
   80%  { transform: translate(90px, 50px) scale(0.88); }
   100% { transform: translate(0px, 0px) scale(1); }
 }
+
+/* ===== MOBILE PHONES (до 480px) ===== */
+@media (max-width: 480px) {
+  .font-display {
+    letter-spacing: -0.02em;
+  }
+  section {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+  }
+  .grid {
+    gap: 1rem !important;
+  }
+}
+
+/* ===== TABLETS (481px - 1024px) ===== */
+@media (min-width: 481px) and (max-width: 1024px) {
+  section {
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
+  }
+}
+
+/* ===== ANDROID FIX ===== */
+@supports (-webkit-touch-callout: none) {
+  .backdrop-blur-md {
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+}
+
+/* ===== SAFE AREA (iPhone X+, Android notch) ===== */
+@supports (padding: max(0px)) {
+  nav {
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+  }
+  footer {
+    padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* ===== TOUCH DEVICES ===== */
+@media (hover: none) and (pointer: coarse) {
+  .aurora-blob-1,
+  .aurora-blob-2,
+  .aurora-blob-3 {
+    display: none !important;
+  }
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* ===== LOW-END DEVICES ===== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
