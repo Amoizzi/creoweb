@@ -1,7 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
-import Button from "@/components/ui/Button";
 
 const plans = [
   {
@@ -133,9 +132,16 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              <Button variant={p.buttonVariant} href="#contact" className="w-full justify-center">
+              <button
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                className={`w-full inline-flex items-center justify-center font-medium rounded-full transition-all duration-300 cursor-pointer px-8 py-3 text-base ${
+                  p.buttonVariant === "primary"
+                    ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] hover:scale-105"
+                    : "border border-purple-500 text-purple-400 hover:bg-purple-500/10 hover:border-purple-400"
+                }`}
+              >
                 Обрати план
-              </Button>
+              </button>
             </motion.div>
           ))}
         </div>
