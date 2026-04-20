@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { useIsLowEnd } from "@/hooks/useIsLowEnd";
 
 const steps = [
   { num: "01", title: "Брифінг", desc: "Знайомимось, обговорюємо цілі, аудиторію та побажання. Визначаємо стратегію." },
@@ -9,12 +10,13 @@ const steps = [
 ];
 
 export default function Process() {
+  const isLowEnd = useIsLowEnd();
   return (
     <section id="process" className="relative py-32">
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={isLowEnd ? {} : { opacity: 0, y: 30 }}
+          whileInView={isLowEnd ? {} : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
@@ -34,8 +36,8 @@ export default function Process() {
           {steps.map((s, i) => (
             <motion.div
               key={s.num}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={isLowEnd ? {} : { opacity: 0, y: 40 }}
+              whileInView={isLowEnd ? {} : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               className="relative p-6 rounded-2xl border border-white/8 bg-white/3 hover:border-purple-500/40 hover:bg-white/5 transition-all duration-300 group"

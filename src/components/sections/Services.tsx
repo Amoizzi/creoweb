@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { Video, Scissors, BarChart2, Image, FileText, Lightbulb, Globe, Bot, Mail, Palette } from "lucide-react";
+import { useIsLowEnd } from "@/hooks/useIsLowEnd";
 
 const services = [
   {
@@ -86,6 +87,7 @@ const services = [
 ];
 
 export default function Services() {
+  const isLowEnd = useIsLowEnd();
   return (
     <section id="services" className="relative py-32 bg-[#0a0a0f]">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-purple-900/10 blur-[120px] rounded-full pointer-events-none" />
@@ -93,8 +95,8 @@ export default function Services() {
       <div className="relative z-10 max-w-6xl mx-auto px-6">
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={isLowEnd ? {} : { opacity: 0, y: 30 }}
+          whileInView={isLowEnd ? {} : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
@@ -114,8 +116,8 @@ export default function Services() {
           {services.map((s, i) => (
             <motion.div
               key={s.title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={isLowEnd ? {} : { opacity: 0, y: 40 }}
+              whileInView={isLowEnd ? {} : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
               className={`relative p-6 rounded-2xl border bg-gradient-to-br ${s.color} ${s.border} transition-all duration-300 group cursor-default`}

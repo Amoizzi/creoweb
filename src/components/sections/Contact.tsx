@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { Send } from "lucide-react";
 import { useState } from "react";
+import { useIsLowEnd } from "@/hooks/useIsLowEnd";
 
 const topics = [
   "Відеозйомка",
@@ -18,6 +19,7 @@ const topics = [
 ];
 
 export default function Contact() {
+  const isLowEnd = useIsLowEnd();
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -60,8 +62,8 @@ export default function Contact() {
 
       <div className="relative z-10 max-w-2xl mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={isLowEnd ? {} : { opacity: 0, y: 30 }}
+          whileInView={isLowEnd ? {} : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
@@ -81,8 +83,8 @@ export default function Contact() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={isLowEnd ? {} : { opacity: 0, y: 30 }}
+          whileInView={isLowEnd ? {} : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="bg-white/5 border border-white/10 rounded-3xl p-8"

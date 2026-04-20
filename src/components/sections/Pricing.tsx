@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import { useIsLowEnd } from "@/hooks/useIsLowEnd";
 
 const plans = [
   {
@@ -77,12 +78,13 @@ const plans = [
 ];
 
 export default function Pricing() {
+  const isLowEnd = useIsLowEnd();
   return (
     <section id="pricing" className="relative py-32">
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={isLowEnd ? {} : { opacity: 0, y: 30 }}
+          whileInView={isLowEnd ? {} : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
@@ -102,8 +104,8 @@ export default function Pricing() {
           {plans.map((p, i) => (
             <motion.div
               key={p.name}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={isLowEnd ? {} : { opacity: 0, y: 40 }}
+              whileInView={isLowEnd ? {} : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               className={`relative p-6 rounded-2xl border ${p.color} bg-white/3 hover:bg-white/5 transition-all duration-300 flex flex-col ${p.name === "Про" ? "ring-1 ring-purple-500/30" : ""}`}

@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { useIsLowEnd } from "@/hooks/useIsLowEnd";
 
 const reviews = [
   {
@@ -23,12 +24,13 @@ const reviews = [
 ];
 
 export default function Testimonials() {
+  const isLowEnd = useIsLowEnd();
   return (
     <section id="testimonials" className="relative py-32">
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={isLowEnd ? {} : { opacity: 0, y: 30 }}
+          whileInView={isLowEnd ? {} : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
@@ -45,8 +47,8 @@ export default function Testimonials() {
           {reviews.map((r, i) => (
             <motion.div
               key={r.name}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={isLowEnd ? {} : { opacity: 0, y: 40 }}
+              whileInView={isLowEnd ? {} : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               className="p-6 rounded-2xl border border-white/8 bg-white/3 hover:border-purple-500/30 transition-all duration-300"
