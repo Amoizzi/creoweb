@@ -2,15 +2,36 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
-* {
+*, *::before, *::after {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-img, video {
+body {
+  background-color: #0a0a0f;
+  color: #f0f0f0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+img, video, svg {
   max-width: 100%;
   height: auto;
+  display: block;
+}
+
+button, a {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 :root {
@@ -21,11 +42,6 @@ img, video {
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-}
-
-body {
-  background-color: #0a0a0f;
-  color: #f0f0f0;
 }
 
 @keyframes pulse-slow {
@@ -141,6 +157,11 @@ body {
   footer {
     padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
   }
+
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
 }
 
 /* ===== TOUCH DEVICES ===== */
@@ -150,16 +171,29 @@ body {
   .aurora-blob-3 {
     display: none !important;
   }
+
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.15s !important;
+  }
+
   button, a {
     min-height: 44px;
     min-width: 44px;
   }
 }
 
+/* ===== FALLBACK FOR NO BACKDROP-FILTER ===== */
+@supports not (backdrop-filter: blur(1px)) {
+  nav {
+    background-color: rgba(10, 10, 15, 0.98) !important;
+  }
+}
+
 /* ===== LOW-END DEVICES ===== */
 @media (prefers-reduced-motion: reduce) {
   * {
-    animation-duration: 0.01ms !important;
+    animation: none !important;
     transition-duration: 0.01ms !important;
   }
 }
