@@ -36,8 +36,8 @@ export default function Footer() {
           </div>
 
           <div className="text-gray-600 text-sm">
-            <a href="mailto:hello@creoweb.ua" className="hover:text-purple-400 transition-colors">
-              hello@creoweb.ua
+            <a href="mailto:hello@creoweb-smm.com" className="hover:text-purple-400 transition-colors">
+              hello@creoweb-smm.com
             </a>
           </div>
         </div>
