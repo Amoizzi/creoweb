@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --background: #0a0a0f;
+  --foreground: #f0f0f0;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+body {
+  background-color: #0a0a0f;
+  color: #f0f0f0;
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.aurora-blob-1 {
+  position: fixed;
+  top: 5%;
+  left: 15%;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124,58,237,0.14) 0%, transparent 65%);
+  animation: aurora1 14s ease-in-out infinite;
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.aurora-blob-2 {
+  position: fixed;
+  top: 35%;
+  right: 10%;
+  width: 550px;
+  height: 550px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 65%);
+  animation: aurora2 18s ease-in-out infinite;
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+.aurora-blob-3 {
+  position: fixed;
+  bottom: 5%;
+  left: 35%;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(192,132,252,0.10) 0%, transparent 65%);
+  animation: aurora3 11s ease-in-out infinite;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+@keyframes aurora1 {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  25%  { transform: translate(100px, -80px) scale(1.12); }
+  50%  { transform: translate(60px, 100px) scale(0.92); }
+  75%  { transform: translate(-80px, 40px) scale(1.06); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes aurora2 {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  30%  { transform: translate(-90px, 70px) scale(0.94); }
+  60%  { transform: translate(70px, -90px) scale(1.08); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes aurora3 {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  40%  { transform: translate(-70px, -80px) scale(1.15); }
+  80%  { transform: translate(90px, 50px) scale(0.88); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
