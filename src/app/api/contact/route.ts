@@ -6,9 +6,9 @@ export async function POST(req: NextRequest) {
     const { name, contact, topic, message } = body;
 
     const token = process.env.TELEGRAM_BOT_TOKEN;
-    const chatId = process.env.TELEGRAM_CHAT_ID;
+    const chatIds = process.env.TELEGRAM_CHAT_IDS;
 
-    if (!token || !chatId) {
+    if (!token || !chatIds) {
       return NextResponse.json({ error: "Bot not configured" }, { status: 500 });
     }
 
@@ -23,20 +23,24 @@ export async function POST(req: NextRequest) {
 ⏰ ${new Date().toLocaleString("uk-UA", { timeZone: "Europe/Kyiv" })}
     `.trim();
 
-    const response = await fetch(
-      `https://api.telegram.org/bot${token}/sendMessage`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text,
-          parse_mode: "Markdown",
-        }),
-      }
+    const ids = chatIds.split(",");
+
+    const results = await Promise.allSettled(
+      ids.map((id) =>
+        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: id.trim(),
+            text,
+            parse_mode: "Markdown",
+          }),
+        })
+      )
     );
 
-    if (!response.ok) {
+    const allFailed = results.every((r) => r.status === "rejected");
+    if (allFailed) {
       return NextResponse.json({ error: "Telegram error" }, { status: 500 });
     }
 
