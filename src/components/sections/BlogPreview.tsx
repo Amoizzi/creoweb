@@ -5,6 +5,10 @@ import { posts } from "@/lib/posts";
 
 export default function BlogPreview() {
   const [selected, setSelected] = useState<string | null>(null);
+  const [showAll, setShowAll] = useState(false);
+
+  const sorted = [...posts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const visible = showAll ? sorted : sorted.slice(0, 9);
   const post = posts.find((p) => p.slug === selected);
   const paragraphs = post?.content.split("\n").filter(Boolean) || [];
 
@@ -12,7 +16,6 @@ export default function BlogPreview() {
     <section id="blog" className="relative py-32">
       <div className="relative z-10 max-w-6xl mx-auto px-6">
 
-        {/* Header */}
         <div className="text-center mb-12">
           <span className="inline-flex items-center border border-purple-500/50 text-purple-400 text-xs px-4 py-1.5 rounded-full mb-4 bg-purple-500/5">
             Блог
@@ -25,9 +28,8 @@ export default function BlogPreview() {
           </p>
         </div>
 
-        {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {posts.map((p) => (
+          {visible.map((p) => (
             <button
               key={p.slug}
               onClick={() => setSelected(p.slug)}
@@ -50,9 +52,18 @@ export default function BlogPreview() {
           ))}
         </div>
 
+        {sorted.length > 9 && (
+          <div className="text-center mt-10">
+            <button
+              onClick={() => setShowAll(!showAll)}
+              className="border border-purple-500/50 text-purple-400 px-8 py-3 rounded-full hover:bg-purple-500/10 transition-all duration-300 text-sm font-medium"
+            >
+              {showAll ? "Згорнути ↑" : "Показати всі статті ↓"}
+            </button>
+          </div>
+        )}
       </div>
 
-      {/* Modal */}
       {selected && post && (
         <div
           className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-16 bg-black/80 backdrop-blur-sm overflow-y-auto"
@@ -62,7 +73,6 @@ export default function BlogPreview() {
             className="relative bg-[#0f0f1a] border border-white/10 rounded-3xl max-w-3xl w-full p-8 mb-8"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close */}
             <button
               onClick={() => setSelected(null)}
               className="absolute top-6 right-6 text-gray-500 hover:text-white transition-colors bg-white/5 rounded-full p-2"
@@ -70,7 +80,6 @@ export default function BlogPreview() {
               <X size={20} />
             </button>
 
-            {/* Header */}
             <span className="inline-flex items-center border border-purple-500/30 text-purple-400 text-xs px-3 py-1 rounded-full mb-4 bg-purple-500/5">
               {post.category}
             </span>
@@ -82,26 +91,16 @@ export default function BlogPreview() {
               <span>{post.readTime} читання</span>
             </div>
 
-            {/* Content */}
             <div className="space-y-2">
               {paragraphs.map((p, i) => {
-                if (p.startsWith("## ")) {
-                  return <h2 key={i} className="font-display font-bold text-white text-2xl mt-8 mb-3">{p.replace("## ", "")}</h2>;
-                }
-                if (p.startsWith("### ")) {
-                  return <h3 key={i} className="font-display font-bold text-white text-xl mt-6 mb-2">{p.replace("### ", "")}</h3>;
-                }
-                if (p.startsWith("- ")) {
-                  return <li key={i} className="text-gray-300 ml-4 mb-1">{p.replace("- ", "")}</li>;
-                }
-                if (p.startsWith("**") && p.endsWith("**")) {
-                  return <p key={i} className="text-white font-medium mt-4">{p.replace(/\*\*/g, "")}</p>;
-                }
+                if (p.startsWith("## ")) return <h2 key={i} className="font-display font-bold text-white text-2xl mt-8 mb-3">{p.replace("## ", "")}</h2>;
+                if (p.startsWith("### ")) return <h3 key={i} className="font-display font-bold text-white text-xl mt-6 mb-2">{p.replace("### ", "")}</h3>;
+                if (p.startsWith("- ")) return <li key={i} className="text-gray-300 ml-4 mb-1">{p.replace("- ", "")}</li>;
+                if (p.startsWith("**") && p.endsWith("**")) return <p key={i} className="text-white font-medium mt-4">{p.replace(/\*\*/g, "")}</p>;
                 return <p key={i} className="text-gray-400 leading-relaxed">{p}</p>;
               })}
             </div>
 
-            {/* CTA */}
             <div className="mt-12 p-6 rounded-2xl border border-purple-500/30 bg-gradient-to-r from-purple-600/10 to-blue-600/10 text-center">
               <h3 className="font-display font-bold text-white text-xl mb-2">
                 Потрібна допомога з контентом?
