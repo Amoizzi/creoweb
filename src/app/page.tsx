@@ -5,6 +5,7 @@ import Portfolio from "@/components/sections/Portfolio";
 import Process from "@/components/sections/Process";
 import Pricing from "@/components/sections/Pricing";
 import Testimonials from "@/components/sections/Testimonials";
+import BlogPreview from "@/components/sections/BlogPreview";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
 import GridBackground from "@/components/ui/GridBackground";
@@ -21,6 +22,7 @@ export default function Home() {
         <Process />
         <Pricing />
         <Testimonials />
+        <BlogPreview />
         <Contact />
         <Footer />
       </div>
