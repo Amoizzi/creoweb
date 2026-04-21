@@ -135,7 +135,11 @@ export default function Pricing() {
               </ul>
 
               <button
-                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() => {
+                  const plan = p.name;
+                  sessionStorage.setItem("selectedPlan", plan);
+                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                }}
                 className={`w-full inline-flex items-center justify-center font-medium rounded-full transition-all duration-300 cursor-pointer px-8 py-3 text-base ${
                   p.buttonVariant === "primary"
                     ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] hover:scale-105"

@@ -1,10 +1,14 @@
 "use client";
 import { motion } from "framer-motion";
 import { Send } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useIsLowEnd } from "@/hooks/useIsLowEnd";
 
 const topics = [
+  "Старт — 12 000 ₴/міс",
+  "Про — 25 000 ₴/міс",
+  "Бізнес — 45 000 ₴/міс",
+  "Індивідуальний — від 15 000 ₴",
   "Відеозйомка",
   "Монтаж відео",
   "SMM та стратегія",
@@ -29,6 +33,14 @@ export default function Contact() {
     topic: "",
     message: "",
   });
+
+  useEffect(() => {
+    const plan = sessionStorage.getItem("selectedPlan");
+    if (plan) {
+      setForm((prev) => ({ ...prev, topic: plan }));
+      sessionStorage.removeItem("selectedPlan");
+    }
+  }, []);
 
   const handleSubmit = async () => {
     if (!form.name || !form.contact) {
