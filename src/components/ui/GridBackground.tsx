@@ -3,30 +3,35 @@ import { useEffect, useRef, useState } from "react";
 
 export default function GridBackground() {
   const glowRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+    setMounted(true);
+    const check = () => setIsMobile(
+      window.innerWidth < 768 ||
+      /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ||
+      (navigator as any).deviceMemory <= 2
+    );
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
 
   useEffect(() => {
-    if (isMobile) return;
+    if (isMobile || !mounted) return;
     const handleMouseMove = (e: MouseEvent) => {
       if (glowRef.current) {
         glowRef.current.style.left = e.clientX - 300 + "px";
         glowRef.current.style.top = e.clientY - 300 + "px";
       }
     };
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [isMobile]);
+  }, [isMobile, mounted]);
 
   return (
     <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-      {/* Grid */}
       <div
         className="absolute inset-0"
         style={{
@@ -37,17 +42,13 @@ export default function GridBackground() {
           backgroundSize: "60px 60px",
         }}
       />
-
-      {/* Top glow - works on all devices */}
       <div
         className="absolute inset-0"
         style={{
           background: "radial-gradient(ellipse 80% 40% at 50% 0%, rgba(124,58,237,0.15) 0%, transparent 70%)",
         }}
       />
-
-      {/* Desktop only effects */}
-      {!isMobile && (
+      {mounted && !isMobile && (
         <>
           <div
             ref={glowRef}
