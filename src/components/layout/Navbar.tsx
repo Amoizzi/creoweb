@@ -41,7 +41,7 @@ export default function Navbar() {
           {[
             { label: "Послуги", id: "services" },
             { label: "Портфоліо", id: "portfolio" },
-            { label: "Кейси", id: "portfolio" },
+            { label: "Блог", id: "blog" },
             { label: "Контакти", id: "contact" },
           ].map((item) => (
             <button
@@ -74,7 +74,7 @@ export default function Navbar() {
           {[
             { label: "Послуги", id: "services" },
             { label: "Портфоліо", id: "portfolio" },
-            { label: "Кейси", id: "portfolio" },
+            { label: "Блог", id: "blog" },
             { label: "Контакти", id: "contact" },
           ].map((item) => (
             <button
