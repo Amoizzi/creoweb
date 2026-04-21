@@ -96,7 +96,7 @@ export default function BlogPreview() {
                 if (p.startsWith("## ")) return <h2 key={i} className="font-display font-bold text-white text-2xl mt-8 mb-3">{p.replace("## ", "")}</h2>;
                 if (p.startsWith("### ")) return <h3 key={i} className="font-display font-bold text-white text-xl mt-6 mb-2">{p.replace("### ", "")}</h3>;
                 if (p.startsWith("- ")) return <li key={i} className="text-gray-300 ml-4 mb-1">{p.replace("- ", "")}</li>;
-                if (p.startsWith("**") && p.endsWith("**")) return <p key={i} className="text-white font-medium mt-4">{p.replace(/\*\*/g, "")}</p>;
+                if (p.startsWith("**") && p.endsWith("**")) return <p key={i} className="text-purple-400 font-medium mt-4 border-t border-white/5 pt-4">{p.replace(/\*\*/g, "")}</p>;
                 return <p key={i} className="text-gray-400 leading-relaxed">{p}</p>;
               })}
             </div>
