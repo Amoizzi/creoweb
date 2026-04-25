@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "CreoWeb — SMM агенція, відео, сайти та Telegram боти для бізнесу",
-  description: "CreoWeb — створення контенту для бізнесу в Україні. SMM просування, монтаж відео TikTok та Reels, розробка сайтів та лендінгів, Telegram боти, branding під ключ.",
+  title: "CreoWeb — SMM, відео, сайти та контент для бізнесу в Україні",
+  description: "CreoWeb — SMM просування, монтаж відео TikTok та Reels, розробка сайтів, Telegram боти та branding для бізнесу в Україні. Від ідеї до результату за один день.",
   keywords: [
     "SMM агенція", "створення контенту", "монтаж відео TikTok",
     "розробка сайтів", "лендінг", "Telegram бот", "branding",
